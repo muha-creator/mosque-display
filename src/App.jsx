@@ -29,12 +29,12 @@ Isha:"العشاء"
 }
 
 const messages=[
-"Qur'an 7:31 — Take your adornment at every masjid.",
-"Sahih Muslim 440 — The best rows for men are the first rows.",
-"Bukhari 723 — Straighten your rows for prayer.",
-"Bukhari 645 — Congregational prayer is 27 times better.",
-"Muslim 482 — The closest a servant is to Allah is in sujood.",
-"Muslim 671 — The most beloved places to Allah are the mosques."
+"O children of Adam, take your adornment at every mosque — Qur’an 7:31",
+"In houses which Allah has ordered to be raised and that His name be remembered therein — Qur’an 24:36",
+"The most beloved places to Allah are the mosques — Sahih Muslim",
+"Prayer in congregation is 27 times more rewarding than prayer alone — Sahih al-Bukhari, Sahih Muslim",
+"Whoever builds a mosque for Allah, Allah will build for him a house in Paradise — Sahih al-Bukhari, Sahih Muslim",
+"Give glad tidings of complete light on the Day of Resurrection to those who walk to the mosques in the darkness — Sunan Abu Dawud"
 ]
 
 const [time,setTime]=useState(new Date())
@@ -373,7 +373,7 @@ transition={{duration:120,repeat:Infinity,repeatType:"reverse"}}
 <div className="w-full h-4 rounded-full bg-white/10 overflow-hidden mb-10">
 
 <motion.div
-className="h-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-100 opacity-50 backdrop-blur-sm shadow-[0_0_10px_rgba(16,185,129,0.4)]"
+className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-emerald-400 to-emerald-400 opacity-50 backdrop-blur-sm shadow-[0_0_10px_rgba(16,185,129,0.4)]"
 style={{width:`${progress}%`}}
 />
 
