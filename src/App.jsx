@@ -13,6 +13,7 @@ const backgroundImage="https://wallpapercave.com/wp/wp4666645.jpg"
 
 const iqamaOffsets={
 Fajr:30,
+Dhuhr:15,
 Asr:20,
 Maghrib:5,
 Isha:10
@@ -309,7 +310,7 @@ const formattedTime=time.toLocaleTimeString("en-AU",{hour:"numeric",minute:"2-di
 const gregorianDate=time.toLocaleDateString("en-AU",{weekday:"long",year:"numeric",month:"long",day:"numeric"})
 
 let announcement=iqamaActive
-?"Please silence your phones before salah"
+?"Please silence your phone"
 :messages[messageIndex]
 
 function enterFullscreen(){
@@ -429,16 +430,28 @@ highlight
 <div className="text-sm opacity-70">{arabicNames[displayName]}</div>
 <div className="text-4xl font-semibold opacity-80">{format12(t)}</div>
 
-{name !== "Shuruq" && iqamaOffsets[name] && (
-<div className="text-lg text-emerald-300 mt-2">
-Iqama {format12(
+{name !== "Shuruq" && (
+<div className="text-lg mt-2">
+
+<div>Iqama</div>
+<div className="opacity-70">الإقامة</div>
+
+<div>
+{format12(
+
+name==="Dhuhr" && !isJumahMode()
+? "13:30"
+:
 new Date(
 new Date().setHours(
 parseInt(t.split(":")[0]),
-parseInt(t.split(":")[1]) + iqamaOffsets[name]
+parseInt(t.split(":")[1]) + (iqamaOffsets[name] || 0)
 )
 ).toTimeString().slice(0,5)
+
 )}
+</div>
+
 </div>
 )}
 
