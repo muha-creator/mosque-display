@@ -98,7 +98,9 @@ async function loadPrayerTimes(){
 
 try{
 
-const res=await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2`)
+const res=await fetch(
+`https://api.aladhan.com/v1/timings?latitude=-33.8688&longitude=151.2093&method=2&school=0&midnightMode=1`
+)
 const data=await res.json()
 
 const t=data.data.timings
@@ -129,7 +131,11 @@ setPrayers(JSON.parse(cached))
 
 }
 
-useEffect(()=>{loadPrayerTimes()},[])
+useEffect(()=>{
+loadPrayerTimes()
+const interval=setInterval(loadPrayerTimes,3600000)
+return()=>clearInterval(interval)
+},[])
 
 useEffect(()=>{
 const check=setInterval(()=>{
@@ -430,7 +436,28 @@ highlight
 <div className="text-sm opacity-70">{arabicNames[displayName]}</div>
 <div className="text-4xl font-semibold opacity-80">{format12(t)}</div>
 
-{name !== "Shuruq" && (
+{name === "Shuruq" ? (
+
+<div className="text-lg mt-2">
+
+<div>Salat al-Duha</div>
+<div className="opacity-70">صلاة الضحى</div>
+
+<div>
+{format12(
+new Date(
+new Date().setHours(
+parseInt(t.split(":")[0]),
+parseInt(t.split(":")[1]) + 15
+)
+).toTimeString().slice(0,5)
+)}
+</div>
+
+</div>
+
+) : (
+
 <div className="text-lg mt-2">
 
 <div>Iqama</div>
@@ -453,6 +480,7 @@ parseInt(t.split(":")[1]) + (iqamaOffsets[name] || 0)
 </div>
 
 </div>
+
 )}
 
 </CardContent>
