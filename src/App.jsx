@@ -15,7 +15,7 @@ const iqamaOffsets={
 Fajr:30,
 Asr:20,
 Maghrib:5,
-Isha:15
+Isha:10
 }
 
 const arabicNames={
@@ -97,7 +97,7 @@ async function loadPrayerTimes(){
 
 try{
 
-const res=await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=3`)
+const res=await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2`)
 const data=await res.json()
 
 const t=data.data.timings
@@ -428,6 +428,19 @@ highlight
 <div className="text-lg font-medium">{displayName}</div>
 <div className="text-sm opacity-70">{arabicNames[displayName]}</div>
 <div className="text-4xl font-semibold opacity-80">{format12(t)}</div>
+
+{name !== "Shuruq" && iqamaOffsets[name] && (
+<div className="text-lg text-emerald-300 mt-2">
+Iqama {format12(
+new Date(
+new Date().setHours(
+parseInt(t.split(":")[0]),
+parseInt(t.split(":")[1]) + iqamaOffsets[name]
+)
+).toTimeString().slice(0,5)
+)}
+</div>
+)}
 
 </CardContent>
 
