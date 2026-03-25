@@ -121,7 +121,12 @@ const hijri=data.data.date.hijri
 setHijriDate(`${hijri.day} ${hijri.month.en} ${hijri.year} AH`)
 
 }catch{
-console.log("API failed — no cache used")
+
+const cached=localStorage.getItem("prayerTimes")
+if(cached){
+setPrayers(JSON.parse(cached))
+}
+
 }
 
 }
@@ -133,13 +138,26 @@ return()=>clearInterval(interval)
 },[])
 
 useEffect(()=>{
-const check=setInterval(()=>{
-const now=new Date()
-if(now.getHours()===0 && now.getMinutes()===1){
+
+function scheduleNextRefresh(){
+
+const now = new Date()
+
+const tomorrow = new Date()
+tomorrow.setDate(now.getDate() + 1)
+tomorrow.setHours(0,0,5,0)
+
+const msUntilMidnight = tomorrow - now
+
+setTimeout(()=>{
 loadPrayerTimes()
+scheduleNextRefresh()
+}, msUntilMidnight)
+
 }
-},60000)
-return()=>clearInterval(check)
+
+scheduleNextRefresh()
+
 },[])
 
 function format12(timeStr){
