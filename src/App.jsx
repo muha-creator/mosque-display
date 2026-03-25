@@ -98,7 +98,9 @@ async function loadPrayerTimes(){
 
 try{
 
-const res=await fetch(`https://api.aladhan.com/v1/timings?latitude=-33.8688&longitude=151.2093&method=2&school=0`)
+const res = await fetch(
+`https://api.aladhan.com/v1/timings?latitude=-33.8688&longitude=151.2093&method=2&school=0`
+)
 const data=await res.json()
 
 const t=data.data.timings
@@ -119,12 +121,7 @@ const hijri=data.data.date.hijri
 setHijriDate(`${hijri.day} ${hijri.month.en} ${hijri.year} AH`)
 
 }catch{
-
-const cached=localStorage.getItem("prayerTimes")
-if(cached){
-setPrayers(JSON.parse(cached))
-}
-
+console.log("API failed — no cache used")
 }
 
 }
