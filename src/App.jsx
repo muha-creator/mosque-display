@@ -98,9 +98,7 @@ async function loadPrayerTimes(){
 
 try{
 
-const res=await fetch(
-`https://api.aladhan.com/v1/timings?latitude=-33.8688&longitude=151.2093&method=2&school=0&midnightMode=1`
-)
+const res=await fetch(`https://api.aladhan.com/v1/timings?latitude=-33.8688&longitude=151.2093&method=2&school=0`)
 const data=await res.json()
 
 const t=data.data.timings
