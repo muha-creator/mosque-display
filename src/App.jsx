@@ -54,7 +54,29 @@ useEffect(()=>{
 const timer=setInterval(()=>setTime(new Date()),1000)
 return()=>clearInterval(timer)
 },[])
+useEffect(()=>{
 
+let wakeLock=null
+
+async function enableWakeLock(){
+
+try{
+wakeLock=await navigator.wakeLock.request("screen")
+}catch(err){
+console.log("Wake lock not supported",err)
+}
+
+}
+
+enableWakeLock()
+
+document.addEventListener("visibilitychange",()=>{
+if(document.visibilityState==="visible"){
+enableWakeLock()
+}
+})
+
+},[])
 useEffect(()=>{
 const rot=setInterval(()=>{
 setMessageIndex(i=>(i+1)%messages.length)
